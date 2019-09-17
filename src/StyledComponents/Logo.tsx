@@ -7,8 +7,10 @@ interface Logo {
 }
 
 const Logo = styled.img<Logo>`
+    position: absolute;
     width: 64px;
-    opacity: 0.5;
+    opacity: .5;
+    cursor: pointer;
 `
 
 export default Logo
