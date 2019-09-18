@@ -14,7 +14,6 @@ const Wrapper: React.SFC<WrapperProps> = (props) => {
 }
  
 const Body = styled(Wrapper)`
-    border: 1px solid red;
     position: relative;
     overflow: hidden;
     background-color: #dddddd;
@@ -37,12 +36,34 @@ const Logo = styled(Wrapper)`
 
 const Tile = styled(Wrapper)`
     cursor: ${props => props.className === 'tile-wrapper' ? "pointer" : "cursor"};
-    border: 1px solid red;
+    /* border: 1px solid red; */
     background-color: #dddddd;
     margin: 0;
+    margin-bottom: ${props => props.className === 'tile-name' ? '1em' : '0'};
     text-align: center;
     justify-content: space-between;
+    width: 300px;
+    font-size: ${props => props.className === 'tile-name' ? '1.5em' : '1em'};
+
+    &:hover div{
+        opacity: 1;
+    };
 `
+
+const TileHeader = styled(Tile)`
+    padding-top: 100px;
+    margin: 0 auto;
+    font-size: 2em;
+    margin-bottom: 30px;
+    flex-grow: 0;
+    width: 600px;
+    opacity: 0.5;
+`
+
+const TileContent = styled(Tile)`
+    opacity: 0.5;
+`
+
 const Flex = styled(Wrapper)`
     display: flex;
     flex-direction: ${props => props.direction === 'column' ? 'column' : 'row'};
@@ -50,4 +71,4 @@ const Flex = styled(Wrapper)`
     justify-content: center;
 `
 
-export { Tile, Body, Logo, Flex };
+export { Tile, Body, Logo, Flex, TileHeader, TileContent };
