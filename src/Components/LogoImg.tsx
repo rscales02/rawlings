@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
-interface Logo {
+interface LogoImgProps {
     src: string,
     className?: string,
     alt: string
 }
 
-const Logo = styled.img<Logo>`
+const LogoImg = styled.img<LogoImgProps>`
     position: absolute;
     width: 64px;
     opacity: .5;
     cursor: pointer;
 `
 
-export default Logo
+export default LogoImg
