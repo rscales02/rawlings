@@ -7,6 +7,7 @@ export interface WrapperProps {
     onClick?(e: React.MouseEvent<HTMLDivElement, MouseEvent>): HTMLElement | null,
     id?: string,
     direction?: string,
+    target?: string,
 }
  
 const Wrapper: React.SFC<WrapperProps> = (props) => {
@@ -16,12 +17,13 @@ const Wrapper: React.SFC<WrapperProps> = (props) => {
 const Body = styled(Wrapper)`
     position: relative;
     overflow: hidden;
-    background-color: #dddddd;
+    /* background-color: #dddddd; */
     height: 100%;
     width: 100vw;
     margin: 0;
     z-index: 1;
     justify-content: center;
+    background-image: radial-gradient(closest-side,#fff,#cbcbcb);
     
 `
 
@@ -36,14 +38,15 @@ const Logo = styled(Wrapper)`
 
 const Tile = styled(Wrapper)`
     cursor: ${props => props.className === 'tile-wrapper' ? "pointer" : "cursor"};
-    /* border: 1px solid red; */
-    background-color: #dddddd;
     margin: 0;
     margin-bottom: ${props => props.className === 'tile-name' ? '1em' : '0'};
     text-align: center;
     justify-content: space-between;
     width: 300px;
     font-size: ${props => props.className === 'tile-name' ? '1.5em' : '1em'};
+    padding-top: 100px;
+    padding-right: 10px;
+    padding-left: 10px;
 
     &:hover div{
         opacity: 1;
@@ -62,6 +65,8 @@ const TileHeader = styled(Tile)`
 
 const TileContent = styled(Tile)`
     opacity: 0.5;
+    padding-top: 0;
+    text-align: ${props => props.className === 'tile-name' ? 'center' : 'justify'};
 `
 
 const Flex = styled(Wrapper)`
@@ -71,4 +76,12 @@ const Flex = styled(Wrapper)`
     justify-content: center;
 `
 
-export { Tile, Body, Logo, Flex, TileHeader, TileContent };
+const Button = styled(Wrapper)`
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+    z-index: 5;
+`
+
+export { Tile, Body, Logo, Flex, TileHeader, TileContent, Button };

@@ -1,54 +1,75 @@
 import React from 'react';
 import './App.css';
-import { Tile, Body, Logo, Flex, TileHeader, TileContent } from './Components/Wrappers'
+import { Body, Logo, Button } from './Components/Wrappers'
 import LogoImg from './Components/LogoImg'
-import Image from './Components/Image'
+import Home from './Pages/Home'
+import ThrowingHand from './Pages/ThrowingHand'
+import Leather from './Pages/Leather'
 
 export interface AppProps {
 }
  
 export interface AppState {
-  
+  page: string,
 }
+
+interface PageMap {
+  [key: string] : JSX.Element
+}
+
  
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      page: 'leather',
+    }
   }
 
   handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    console.log(this.state);
+    let id: string = event.currentTarget.id
+    let page: string;
+
+    if (id === 'back' || id === 'home') {
+      page = 'home';
+    } else if (id === 'baseball' || id === 'softball') {
+      page = 'throwinghand';
+    } else if (id === 'right-hand' || id === 'left-hand') {
+      page = 'leather';
+    } else {
+      page = ''
+    } 
+
     console.log(event.currentTarget.id);
+    console.log(page)
+    this.setState({
+      page: page
+    })
     return null;
   }
 
   render() { 
+    let pageMap: PageMap = {
+      "home": <Home onClick={ this.handleClick }/>,
+      'throwinghand': <ThrowingHand onClick={ this.handleClick }/>,
+      'leather': <Leather />
+    };
+
+    let selectedPage = pageMap[this.state.page];
+
+    let backButton: JSX.Element = this.state.page !== "home" ? <Button id='back' onClick={this.handleClick}>HOME</Button> : <div></div> 
     return ( 
       <Body className="App">
-        <Logo>
+        {backButton}
+        <Logo id='home' onClick={ this.handleClick }>
           <LogoImg src="https://olv-rawlings-gloves-static.storage.googleapis.com/assets/logo.png.f45de9cc.png" className="App-logo" alt="logo"></LogoImg>
         </Logo>
-        <Flex direction='column'>
-          <TileHeader className='text-header'>
-            What <strong>sport</strong> do you play?
-          </TileHeader>
-          <Flex direction='row'>
-            <Tile id='baseball' className='tile-wrapper' onClick={ this.handleClick }>
-              <Image src='https://olv-rawlings-gloves-static.storage.googleapis.com/assets/icons-280/sport/baseball.png.0085ca94.png' alt='Baseball' />
-              <TileContent className="tile-name">Baseball</TileContent>
-              <TileContent className="tile-text">Gloves crafted for baseball at all levels.</TileContent>
-            </Tile>
-            <Tile id='softball' className='tile-wrapper' onClick= { this.handleClick }>
-              <Image src='https://olv-rawlings-gloves-static.storage.googleapis.com/assets/icons-280/sport/softball.png.3ec1de3c.png' alt='Softball' />
-              <TileContent className="tile-name">Softball</TileContent>
-              <TileContent className="tile-text">Patterns specifically designed for fastpitch softball.</TileContent>
-            </Tile>
-          </Flex>
-        </Flex>
+        <div>{ selectedPage }</div>
      </Body>
      );
   }
 }
  
 export default App;
-

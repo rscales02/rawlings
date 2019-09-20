@@ -8,6 +8,7 @@ interface Link{
 const Image = styled.img<Link>`
     width: 280px;
     height: 280px;
+    padding-bottom: 30px;
 `
 
 export default Image
